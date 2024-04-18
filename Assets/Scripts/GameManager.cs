@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
     public Text Timetxt;
     public GameObject EndTxt;
     public RectTransform levelfront;
+    public GameObject card;
+    public GameObject Nexttxt;
 
     public int CardCount = 0;
     public Card firstcard;
@@ -67,12 +70,13 @@ public class GameManager : MonoBehaviour
 
             if(CardCount == 0)
             {
-
-                EndTxt.SetActive(true);
+                // 클리어시 넥스트레벨 버튼 호출하고 시간 정지
                 Time.timeScale = 0.0f;
-                // board 스크립트에서 스타트 함수 호출해서 레벨은 그대로, 시간 초기화, 카드 배열 다시 하기
-                // 내일 할일, 레벨 마무리, 레벨이 올라가면 주기적으로 레벨에 비례한 확률로 카드 근처에 고양이 생성,
-                // 고양이는 클릭 n번으로 행복해지고 나감, 모든 카드를 맞췄을 때 고양이 파괴
+                Nexttxt.SetActive(true);
+                //  카드 배열 다시 하기
+                // 레벨이 올라가면 주기적으로 레벨에 비례한 확률로 카드 근처에 고양이 생성
+                // 고양이는 클릭 n번으로 행복해지고 나감
+                // 모든 카드를 맞췄을 때 고양이 파괴
 
 
             }
@@ -98,8 +102,10 @@ public class GameManager : MonoBehaviour
         levelfront.localScale = new Vector3((score-level*8)/ 8.0f , 1f, 1f);
     }
 
-
     
-        
-   
+
+    public void timereset()
+    {
+        time = 0.0f;
+    }
 }
